@@ -99,13 +99,11 @@ function Weathers() {
               {temp}℃ 
             </div>
         </div>
-        <div className="w-32 aspect-square border-4 border-zinc-600 rounded-full flex justify-center items-center">
         <img
           src={image}
           className="w-24 aspect-square "
           alt="sun"
         />
-        </div>
       </div>
 
 
