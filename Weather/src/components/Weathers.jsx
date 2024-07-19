@@ -12,7 +12,7 @@ function Weathers() {
   
     let arr= [i1,i2,i3,i4]
   
-    let arr_index = Math.floor(Math.random() * (arr.length+1))
+    let arr_index = Math.floor(Math.random() * (arr.length))
 
     return setImage(arr[arr_index])
   }

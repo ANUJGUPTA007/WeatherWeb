@@ -1,10 +1,7 @@
-import { useState } from 'react'
 import Weathers from './components/Weathers'
 import './App.css'
-import BgImage from './components/bgfin.jpg'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
