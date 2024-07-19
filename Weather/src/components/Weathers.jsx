@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 function Weathers() {
 
   function temp_img(){
@@ -26,19 +25,22 @@ function Weathers() {
   const [temperatureApparent,setTemperatureApparent] = useState('')
   const [image,setImage] = useState('')
 
+
+
   useEffect(()=>{
     temp_img();
     const fetchdata = async ()=>{
 
-      const b = await fetch(`https://api.tomorrow.io/v4/weather/realtime?location=delhi&apikey=TUXLr5VrNZF5QqnAJzfX3yFEPq0F6aL9`)
+      const b = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=0fa33726b2a1ce8ccc68724379aecbe3
+`)
       const delhidata = await b.json();
       console.log(delhidata);
 
-      setCountry(delhidata.location.name)
-      setTemp(delhidata.data.values.temperature)
-      setHumidity(delhidata.data.values.humidity)
-      setWind(delhidata.data.values.windSpeed)
-      setTemperatureApparent(delhidata.data.values.temperatureApparent)
+      setCountry(delhidata.name)
+      setTemp(delhidata.main.temp)
+      setHumidity(delhidata.main.humidity)
+      setWind(delhidata.wind.speed)
+      setTemperatureApparent(delhidata.main.feels_like)
 
     }
     fetchdata();
@@ -49,17 +51,33 @@ function Weathers() {
 
 
   async function onsearch () {
-    temp_img();
     const a = await fetch(
-      `https://api.tomorrow.io/v4/weather/realtime?location=${city}&apikey=TUXLr5VrNZF5QqnAJzfX3yFEPq0F6aL9`)
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0fa33726b2a1ce8ccc68724379aecbe3
+`)
       let alldata = await a.json();
       console.log(alldata)
 
-      setCountry(alldata.location.name)
-      setTemp(alldata.data.values.temperature)
-      setHumidity(alldata.data.values.humidity)
-      setWind(alldata.data.values.windSpeed)
-      setTemperatureApparent(alldata.data.values.temperatureApparent)
+      setCountry(alldata.name)
+      setTemp(alldata.main.temp)
+      setHumidity(alldata.main.humidity)
+      setWind(alldata.wind.speed)
+      setTemperatureApparent(alldata.main.feels_like)
+
+      if (alldata.weather[0].main == "Clouds"){
+        setImage('/images/clouds.png')
+      }
+      else if (alldata.weather[0].main == "Clear"){
+        setImage('/images/clear.png')
+      }
+      else if (alldata.weather[0].main == "Rain"){
+        setImage('/images/rain.png')
+      }
+      else if (alldata.weather[0].main == "Drizzle"){
+        setImage('/images/drixxle.png')
+      }
+      else if (alldata.weather[0].main == "Mist"){
+        setImage('/images/mist.png')
+      }
       
       ;
       setCity('')
@@ -96,9 +114,9 @@ function Weathers() {
             <h1 className="box-content text-3xl font-bold bg-gradient-to-r from-black to-gray-600 text-transparent bg-clip-text mb-4">{country_name}</h1>
 
             <div className="text-5xl font-bold bg-black text-transparent bg-clip-text drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)]">
-              {temp}℃ 
-            </div>
-        </div>
+              {Math.round((temp - 273.15)*100)/100}℃ 
+            </div>      
+      </div>
         <img
           src={image}
           className="w-24 aspect-square "
@@ -145,7 +163,7 @@ function Weathers() {
           <div className="text-xl font-bold mb-3">Feels Like</div>
           <div>
 
-          <span className="text-3xl font-extrabold ">{temperatureApparent}</span><span className="text-3xl font-bold">℃</span>
+          <span className="text-3xl font-extrabold ">{Math.round((temperatureApparent - 273.15)*100)/100}</span><span className="text-3xl font-bold">℃</span>
           </div>
         </div>
       </div>
