@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-    <div className='h-screen flex justify-center items-center flex-col  bg-gradient-to-tr from-blue-600 to-zinc-400' >
+    <div className='h-screen flex justify-center items-center flex-col  bg-indigo-950' >
       
       <Weathers/>
 
