@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 function Weathers() {
-  function temp_img() {
-    let i1 = "https://cdn-icons-png.flaticon.com/512/6122/6122561.png"; //cloud
-    let i2 =
-      "https://cdn-icons-png.freepik.com/256/10603/10603913.png?semt=ais_hybrid"; //sun
-    let i3 = "https://cdn-icons-png.flaticon.com/512/4668/4668769.png"; //thunder
-    let i4 = "https://cdn-icons-png.freepik.com/512/4970/4970412.png"; //rain
-
-    let arr = [i1, i2, i3, i4];
-
-    let arr_index = Math.floor(Math.random() * arr.length);
-
-    return setImage(arr[arr_index]);
-  }
 
   const [city, setCity] = useState("");
   const [country_name, setCountry] = useState("");
@@ -25,7 +12,6 @@ function Weathers() {
   const [imagetitle, setImagetitle] = useState("");
 
   useEffect(() => {
-    temp_img();
     const fetchdata = async () => {
       const b =
         await fetch(`https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=0fa33726b2a1ce8ccc68724379aecbe3
@@ -39,6 +25,26 @@ function Weathers() {
       setWind(delhidata.wind.speed);
       setTemperatureApparent(delhidata.main.feels_like);
       setImagetitle(delhidata.weather[0].main);
+
+      if (delhidata.weather[0].main == "Clouds") {
+        setImage("/images/Clouds.png");
+        setImagetitle(delhidata.weather[0].main);
+      } else if (delhidata.weather[0].main == "Clear") {
+        setImage("/images/Clear.png");
+        setImagetitle(delhidata.weather[0].main);
+      } else if (delhidata.weather[0].main == "Rain") {
+        setImage("/images/Rain.png");
+        setImagetitle(delhidata.weather[0].main);
+      } else if (delhidata.weather[0].main == "Drizzle") {
+        setImage("/images/Drizzle.png");
+        setImagetitle(delhidata.weather[0].main);
+      } else if (delhidata.weather[0].main == "Haze") {
+        setImage("/images/mist.png");
+        setImagetitle(delhidata.weather[0].main);
+      }
+  
+
+
     };
     fetchdata();
   }, []);
@@ -69,7 +75,7 @@ function Weathers() {
     } else if (alldata.weather[0].main == "Drizzle") {
       setImage("/images/Drizzle.png");
       setImagetitle(alldata.weather[0].main);
-    } else if (alldata.weather[0].main == "Mist") {
+    } else if (alldata.weather[0].main == "Haze") {
       setImage("/images/mist.png");
       setImagetitle(alldata.weather[0].main);
     }
@@ -97,7 +103,7 @@ function Weathers() {
 
       <div className="flex justify-between items-center p-5">
         <div className="flex justify-start items-start flex-col">
-          <h1 className="box-content text-3xl font-bold bg-gradient-to-r from-black to-gray-600 text-transparent bg-clip-text mb-4">
+          <h1 className="box-content text-5xl font-bold bg-black text-transparent bg-clip-text mb-4">
             {country_name}
           </h1>
 
