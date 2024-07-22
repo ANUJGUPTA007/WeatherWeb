@@ -38,7 +38,7 @@ function Weathers() {
       } else if (delhidata.weather[0].main == "Drizzle") {
         setImage("/images/Drizzle.png");
         setImagetitle(delhidata.weather[0].main);
-      } else if (delhidata.weather[0].main == "Haze") {
+      } else if (delhidata.weather[0].main == "Haze" || "Mist") {
         setImage("/images/mist.png");
         setImagetitle(delhidata.weather[0].main);
       }
